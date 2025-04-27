@@ -1,10 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.name }} - Программистка</title>
+    <title>Самакова Марина - Python/Django разработчик</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -217,6 +217,25 @@
             50% { opacity: 0; }
          }
 
+        /* Новый стиль для консоли в новом месте */
+        .fixed-console {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1e1e1e;
+            color: #4af626;
+            padding: 10px;
+            font-family: monospace;
+            z-index: 1000;
+            border-top: 2px solid #4af626;
+        }
+
+        .console-text {
+            min-height: 60px;
+            overflow-y: auto;
+            max-height: 120px;
+        }
     </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="100">
@@ -224,7 +243,7 @@
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand animate__animated animate__fadeInLeft" href="#">
-                <i class="fas fa-code"></i> Samakova Marina
+                <i class="fas fa-code"></i> Самакова Марина
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -254,83 +273,67 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 animate__animated animate__fadeInLeft">
                     <h1 class="display-3 fw-bold mb-4">Привет, я <span class="text-primary">Самакова Марина</span></h1>
-                    <h1><i class="fas fa-code"></i> Python Developer</h1>
-<!--                    <h2 class="text-muted mb-4">{{ profile.title }}</h2>-->
-<!--                    <p class="lead mb-4">{{ profile.bio|linebreaks }}</p>-->
-                    <div class="about-header mb-4">
-                        <h2 class="text-primary mb-1">Python/Django разработчик</h2>
-                        <p class="fs-5">3+ года создания веб-приложений</p>
-                    </div>
+                    <h2 class="text-muted mb-4">Python/Django разработчик</h2>
 
-                    <!-- Добавьте в hero-секцию -->
-                    <div class="console-container mt-4 animate__animated animate__fadeInLeft animate__delay-1s">
-                      <div class="console-header bg-dark text-white p-2 rounded-top">
-                        <i class="fas fa-circle text-danger me-1"></i>
-                        <i class="fas fa-circle text-warning me-1"></i>
-                        <i class="fas fa-circle text-success me-1"></i>
-                      </div>
-                      <div class="console-body bg-black text-success p-3 rounded-bottom font-monospace">
-                        <span id="console-text"></span>
-                        <span class="console-cursor">|</span>
-                      </div>
+                    <div class="about-header mb-4">
+                        <h3 class="text-primary mb-1">Специализация:</h3>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Веб-разработка на Django</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Создание REST API</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Оптимизация производительности</li>
+                        </ul>
                     </div>
 
                     <div class="d-flex">
-                        <a href="#about" class="btn btn-primary btn-lg me-3">Узнать больше</a>
+                        <a href="#projects" class="btn btn-primary btn-lg me-3">Мои проекты</a>
                         <a href="#contact" class="btn btn-outline-primary btn-lg">Связаться</a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center animate__animated animate__fadeInRight">
-                    <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" class="profile-img rounded-circle floating">
-                    <img src="{% static 'blog/images/code-bg.png' %}" alt="Code background" class="code-bg d-none d-lg-block">
+                    <img src="{% static 'images/profile.jpg' %}" alt="Самакова Марина" class="profile-img rounded-circle floating">
                 </div>
             </div>
         </div>
-        <a href="#about" class="scroll-down">
-            <i class="fas fa-chevron-down text-primary fa-2x"></i>
-        </a>
     </header>
 
     <!-- Обо мне -->
     <section id="about" class="section bg-white">
         <div class="container">
+            <h2 class="display-4 fw-bold mb-5 animate__animated animate__fadeInUp">Обо <span class="text-primary">мне</span></h2>
+
             <div class="row">
-                <div class="col-lg-6">
-                    <h2 class="display-4 fw-bold mb-5 animate__animated animate__fadeInUp">Обо <span class="text-primary">мне</span></h2>
-                    <div class="animate__animated animate__fadeInUp animate__delay-1s">
-                        {{ profile.bio|linebreaks }}
+                <div class="col-lg-6 animate__animated animate__fadeInUp">
+                    <div class="mb-4">
+                        <p>Я профессиональный Python-разработчик с более чем 3-летним опытом создания веб-приложений на Django. Специализируюсь на разработке высоконагруженных систем и REST API.</p>
+
+                        <h4 class="mt-4">Мой опыт:</h4>
+                        <ul>
+                            <li>Разработка и поддержка коммерческих проектов на Django</li>
+                            <li>Создание микросервисной архитектуры</li>
+                            <li>Интеграция с платежными системами и внешними API</li>
+                            <li>Оптимизация производительности Django-приложений</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="card shadow-lg animate__animated animate__fadeInUp animate__delay-2s">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-graduation-cap text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Образование</h4>
-                                    <p class="text-muted mb-0">Компьютерные науки</p>
-                                </div>
+
+                <div class="col-lg-6 animate__animated animate__fadeInUp">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Ключевые компетенции:</h4>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <span class="badge bg-primary">Python</span>
+                                <span class="badge bg-secondary">Django</span>
+                                <span class="badge bg-success">Django REST</span>
+                                <span class="badge bg-danger">PostgreSQL</span>
+                                <span class="badge bg-warning">Docker</span>
+                                <span class="badge bg-info">Git</span>
                             </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-briefcase text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Опыт</h4>
-                                    <p class="text-muted mb-0">5+ лет в разработке</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-heart text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Интересы</h4>
-                                    <p class="text-muted mb-0">AI, Веб-разработка, Open Source</p>
-                                </div>
-                            </div>
+
+                            <h4 class="mt-4">Образование:</h4>
+                            <p>Высшее техническое образование по специальности "Программная инженерия"</p>
+
+                            <h4 class="mt-4">Языки:</h4>
+                            <p>Русский (родной), Английский (B2 - Upper Intermediate)</p>
                         </div>
                     </div>
                 </div>
@@ -338,7 +341,7 @@
         </div>
     </section>
 
-    <!-- Навыки -->
+<!-- Навыки -->
     <section id="skills" class="section">
         <div class="container">
             <h2 class="display-4 fw-bold text-center mb-5 animate__animated animate__fadeInUp">Мои <span class="text-primary">навыки</span></h2>
@@ -497,7 +500,7 @@
         </div>
     </section>
 
-    <!-- Контакты -->
+        <!-- Контакты -->
     <section id="contact" class="section bg-white">
         <div class="container">
             <h2 class="display-4 fw-bold text-center mb-5 animate__animated animate__fadeInUp">Свяжитесь <span class="text-primary">со мной</span></h2>
@@ -543,7 +546,14 @@
         </div>
     </section>
 
-    <!-- Футер -->
+    <!-- Новая консоль внизу экрана -->
+    <div class="fixed-console">
+        <div class="container">
+            <div class="console-text" id="console-text"></div>
+        </div>
+    </div>
+
+        <!-- Футер -->
     <footer class="bg-dark text-white py-5">
         <div class="container text-center">
             <h3 class="mb-4"><i class="fas fa-code"></i> {{ profile.name }}</h3>
@@ -590,47 +600,51 @@
             );
         });
 
-        // Параллакс эффект
-        $(window).scroll(function() {
-            var scrollPosition = $(this).scrollTop();
-            $('.code-bg').css('transform', 'translateY(-50%) translateX(' + scrollPosition / 10 + 'px)');
-        });
+    <!-- Скрипты -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Обновленный скрипт для консоли
+        const phrases = [
+            "> Добро пожаловать на мой сайт-портфолио!",
+            "> Я - Python/Django разработчик с 3+ годами опыта",
+            "> Мои ключевые навыки: Django, REST API, PostgreSQL, Docker",
+            "> В моем портфолио вы найдете примеры моих работ",
+            "> Для сотрудничества пишите на email или в соцсети"
+        ];
 
-              // JS для анимации печатающегося текста
-      const phrases = [
-        "> Добро пожаловать на мой сайт!",
-        "> Я профессиональный разработчик",
-        "> Специализация: {{ profile.skills.split|join:', ' }}",
-        "> Свяжитесь со мной для сотрудничества!"
-      ];
-      let currentPhrase = 0;
-      let currentChar = 0;
-      let isDeleting = false;
+        let currentPhrase = 0;
+        let currentChar = 0;
+        let isDeleting = false;
+        let isEnd = false;
 
-      function typeWriter() {
-        const element = document.getElementById("console-text");
-        const cursor = document.querySelector(".console-cursor");
+        function typeWriter() {
+            const element = document.getElementById("console-text");
 
-        cursor.style.opacity = cursor.style.opacity == '0' ? '1' : '0';
-
-        if (!isDeleting && currentChar < phrases[currentPhrase].length) {
-          element.textContent += phrases[currentPhrase].charAt(currentChar);
-          currentChar++;
-          setTimeout(typeWriter, 100);
-        } else if (isDeleting && currentChar > 0) {
-          element.textContent = phrases[currentPhrase].substring(0, currentChar-1);
-          currentChar--;
-          setTimeout(typeWriter, 50);
-        } else {
-          isDeleting = !isDeleting;
-          if (!isDeleting) currentPhrase = (currentPhrase + 1) % phrases.length;
-          setTimeout(typeWriter, isDeleting ? 1500 : 500);
+            if (!isDeleting && currentChar < phrases[currentPhrase].length) {
+                element.innerHTML += phrases[currentPhrase].charAt(currentChar);
+                currentChar++;
+                setTimeout(typeWriter, 50);
+            } else if (isDeleting && currentChar > 0) {
+                element.innerHTML = phrases[currentPhrase].substring(0, currentChar-1);
+                currentChar--;
+                setTimeout(typeWriter, 30);
+            } else {
+                if (!isDeleting) {
+                    isEnd = true;
+                    setTimeout(typeWriter, 2000);
+                } else {
+                    isEnd = false;
+                    currentPhrase = (currentPhrase + 1) % phrases.length;
+                    setTimeout(typeWriter, 500);
+                }
+                isDeleting = !isDeleting;
+            }
         }
-      }
 
-      document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(typeWriter, 1000);
-      });
+        // Запускаем анимацию после загрузки страницы
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(typeWriter, 1000);
+        });
     </script>
 </body>
 </html>

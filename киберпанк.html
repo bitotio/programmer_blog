@@ -1,336 +1,330 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.name }} - Программистка</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <title>CYBERPUNK PORTFOLIO | SAMAKOVA.M4R1N4</title>
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #6c63ff;
-            --secondary-color: #4d44db;
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #d300c5;
+            --dark-bg: #0d0221;
+            --glow: 0 0 10px, 0 0 20px, 0 0 30px;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        .profile-img {
-            width: 280px;  /* Увеличиваем размер */
-            height: 280px;  /* Делаем квадрат */
-            object-fit: cover;
-            border: 5px solid white;
-            border-radius: 20px;  /* Закругляем углы */
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);  /* Усиливаем тень */
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;  /* Для лучшего 3D эффекта */
+        /* Киберпанк-навигация */
+        .cyber-nav {
+            background: rgba(13, 2, 33, 0.8);
+            border-bottom: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue);
         }
 
-        .profile-img:hover {
-            transform: scale(1.05) rotate(3deg) translateY(-5px);  /* Более плавный эффект */
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-            border-radius: 15px;  /* Меняем радиус при наведении */
+        .cyber-nav .navbar-brand {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
+            letter-spacing: 2px;
         }
 
-        .profile-img-container {
+        .cyber-nav .nav-link {
+            color: var(--neon-blue);
             position: relative;
-            display: inline-block;
+            margin: 0 10px;
+            font-weight: 700;
         }
 
-        .profile-img-container::after {
+        .cyber-nav .nav-link:hover {
+            color: #fff;
+            text-shadow: var(--glow) var(--neon-blue);
+        }
+
+        .cyber-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-purple);
+            transition: width 0.3s;
+        }
+
+        .cyber-nav .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Герой-секция */
+        .cyber-hero {
+            background: radial-gradient(circle at center, #1a1a4a 0%, var(--dark-bg) 70%);
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.2) 0%, transparent 100%);
-            mix-blend-mode: multiply;
-            transition: all 0.3s ease;
+            background: url('{% static "images/grid.png" %}');
+            opacity: 0.1;
+            pointer-events: none;
         }
 
-        .profile-img-container:hover::after {
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.3) 0%, transparent 100%);
+        .cyber-title {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+            border-right: 3px solid var(--neon-blue);
+            animation: blink-caret 0.75s step-end infinite;
         }
 
-        .skill-badge {
-            margin: 5px;
-            transition: all 0.3s ease;
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--neon-blue); }
         }
 
-        .skill-badge:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        /* Аватарка с неоновой рамкой */
+        .cyber-avatar {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-pink);
+            box-shadow:
+                0 0 15px var(--neon-pink),
+                inset 0 0 15px var(--neon-pink);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s;
         }
 
-        .floating {
-            animation: floating 3s ease-in-out infinite;
+        .cyber-avatar:hover {
+            transform: scale(1.05);
+            box-shadow:
+                0 0 25px var(--neon-pink),
+                inset 0 0 25px var(--neon-pink);
         }
 
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
+        .cyber-avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                var(--neon-pink) 50%,
+                transparent 55%
+            );
+            animation: rotate 6s linear infinite;
+            opacity: 0.7;
         }
 
-        .section {
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Секции */
+        .cyber-section {
+            border-top: 1px solid rgba(5, 217, 232, 0.3);
             padding: 80px 0;
             position: relative;
         }
 
-        .section::before {
+        .cyber-section::before {
+            content: '// ' attr(id);
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--neon-purple);
+            font-family: 'Share Tech Mono', monospace;
+            opacity: 0.3;
+        }
+
+        /* Карточки проектов */
+        .cyber-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--neon-blue);
+            transition: all 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(5, 217, 232, 0.3);
+            border-color: var(--neon-pink);
+        }
+
+        .cyber-card::after {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            background: url('{% static "blog/images/dots.png" %}');
-            opacity: 0.05;
-            pointer-events: none;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 42, 109, 0.1),
+                transparent
+            );
+            transition: all 0.5s;
         }
 
-        .social-icon {
-            font-size: 24px;
-            margin: 0 10px;
-            color: var(--primary-color);
-            transition: all 0.3s ease;
+        .cyber-card:hover::after {
+            left: 100%;
         }
 
-        .social-icon:hover {
-            color: var(--secondary-color);
-            transform: scale(1.2);
-        }
-
-        .code-bg {
-            position: absolute;
-            right: -50px;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.1;
-            z-index: -1;
-            max-width: 400px;
-        }
-
-        .scroll-down {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-30px);}
-            60% {transform: translateY(-15px);}
-        }
-
-        /* Стили для секции проектов */
-        .project-card {
-            transition: all 0.3s ease;
-            border-radius: 10px;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
-        }
-
-        .project-img-container {
-            height: 180px;
+        /* Консоль в футере */
+        .cyber-console {
+            background: rgba(0, 0, 0, 0.7);
+            border-top: 2px solid var(--neon-blue);
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--neon-blue);
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
             overflow: hidden;
         }
 
-        .project-img-container img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-img-container img {
-            transform: scale(1.1);
-        }
-
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(108, 99, 255, 0.9);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
-
-        .project-description {
-            text-align: center;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover .project-description {
-            transform: translateY(0);
-        }
-
-        .project-tech {
-            margin-top: 10px;
-        }
-
-         .console-container {
-            max-width: 600px;
-            border-radius: 8px;
+        .console-text {
+            white-space: nowrap;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-         }
+            animation: typing 4s steps(40) infinite;
+        }
 
-         .console-body {
-            min-height: 100px;
-            font-size: 1.1rem;
-         }
-
-         .console-cursor {
-            animation: blink 1s infinite;
-         }
-
-         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-         }
-
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
     </style>
 </head>
-<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="100">
+<body>
     <!-- Навигация -->
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg cyber-nav fixed-top">
         <div class="container">
-            <a class="navbar-brand animate__animated animate__fadeInLeft" href="#">
-                <i class="fas fa-code"></i> Samakova Marina
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-terminal"></i> SAMAKOVA.M4R1N4
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">Обо мне</a>
+                        <a class="nav-link" href="#about">[О_СЕБЕ]</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#skills">Навыки</a>
+                        <a class="nav-link" href="#skills">[НАВЫКИ]</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#projects">Проекты</a>
+                        <a class="nav-link" href="#projects">[ПРОЕКТЫ]</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Контакты</a>
+                        <a class="nav-link" href="#contact">[КОНТАКТЫ]</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Герой секция -->
-    <header class="section" style="min-height: 100vh; display: flex; align-items: center;">
+    <!-- Герой-секция -->
+    <section class="cyber-hero d-flex align-items-center">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 animate__animated animate__fadeInLeft">
-                    <h1 class="display-3 fw-bold mb-4">Привет, я <span class="text-primary">Самакова Марина</span></h1>
-                    <h1><i class="fas fa-code"></i> Python Developer</h1>
-<!--                    <h2 class="text-muted mb-4">{{ profile.title }}</h2>-->
-<!--                    <p class="lead mb-4">{{ profile.bio|linebreaks }}</p>-->
-                    <div class="about-header mb-4">
-                        <h2 class="text-primary mb-1">Python/Django разработчик</h2>
-                        <p class="fs-5">3+ года создания веб-приложений</p>
-                    </div>
-
-                    <!-- Добавьте в hero-секцию -->
-                    <div class="console-container mt-4 animate__animated animate__fadeInLeft animate__delay-1s">
-                      <div class="console-header bg-dark text-white p-2 rounded-top">
-                        <i class="fas fa-circle text-danger me-1"></i>
-                        <i class="fas fa-circle text-warning me-1"></i>
-                        <i class="fas fa-circle text-success me-1"></i>
-                      </div>
-                      <div class="console-body bg-black text-success p-3 rounded-bottom font-monospace">
-                        <span id="console-text"></span>
-                        <span class="console-cursor">|</span>
-                      </div>
-                    </div>
-
-                    <div class="d-flex">
-                        <a href="#about" class="btn btn-primary btn-lg me-3">Узнать больше</a>
-                        <a href="#contact" class="btn btn-outline-primary btn-lg">Связаться</a>
+                <div class="col-lg-6">
+                    <h1 class="cyber-title display-3 mb-4">> HELLO_WORLD()</h1>
+                    <h2 class="text-white mb-4">// Python/Django Developer</h2>
+                    <p class="lead" style="color: #a1a1e5;">
+                        Специализация: создание высоконагруженных веб-систем и API
+                    </p>
+                    <div class="d-flex mt-4">
+                        <a href="#projects" class="btn btn-outline-primary me-3" style="
+                            color: var(--neon-blue);
+                            border-color: var(--neon-blue);
+                        ">
+                            <i class="fas fa-code me-2"></i>МОИ_ПРОЕКТЫ
+                        </a>
+                        <a href="#contact" class="btn btn-outline-danger" style="
+                            color: var(--neon-pink);
+                            border-color: var(--neon-pink);
+                        ">
+                            <i class="fas fa-terminal me-2"></i>КОНТАКТЫ
+                        </a>
                     </div>
                 </div>
-                <div class="col-lg-6 text-center animate__animated animate__fadeInRight">
-                    <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" class="profile-img rounded-circle floating">
-                    <img src="{% static 'blog/images/code-bg.png' %}" alt="Code background" class="code-bg d-none d-lg-block">
+                <div class="col-lg-6 text-center">
+                    <div class="cyber-avatar mx-auto">
+                        <img src="{{ profile.photo.url }}" alt="CYBER_AVATAR" class="img-fluid" style="
+                            position: relative;
+                            z-index: 2;
+                            border-radius: 50%;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        ">
+                    </div>
                 </div>
             </div>
         </div>
-        <a href="#about" class="scroll-down">
-            <i class="fas fa-chevron-down text-primary fa-2x"></i>
-        </a>
-    </header>
+    </section>
 
-    <!-- Обо мне -->
+     <!-- Обо мне -->
     <section id="about" class="section bg-white">
         <div class="container">
+            <h2 class="display-4 fw-bold mb-5 animate__animated animate__fadeInUp">Обо <span class="text-primary">мне</span></h2>
+
             <div class="row">
-                <div class="col-lg-6">
-                    <h2 class="display-4 fw-bold mb-5 animate__animated animate__fadeInUp">Обо <span class="text-primary">мне</span></h2>
-                    <div class="animate__animated animate__fadeInUp animate__delay-1s">
-                        {{ profile.bio|linebreaks }}
+                <div class="col-lg-6 animate__animated animate__fadeInUp">
+                    <div class="mb-4">
+                        <p>Я профессиональный Python-разработчик с более чем 3-летним опытом создания веб-приложений на Django. Специализируюсь на разработке высоконагруженных систем и REST API.</p>
+
+                        <h4 class="mt-4">Мой опыт:</h4>
+                        <ul>
+                            <li>Разработка и поддержка коммерческих проектов на Django</li>
+                            <li>Создание микросервисной архитектуры</li>
+                            <li>Интеграция с платежными системами и внешними API</li>
+                            <li>Оптимизация производительности Django-приложений</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="card shadow-lg animate__animated animate__fadeInUp animate__delay-2s">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-graduation-cap text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Образование</h4>
-                                    <p class="text-muted mb-0">Компьютерные науки</p>
-                                </div>
+
+                <div class="col-lg-6 animate__animated animate__fadeInUp">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Ключевые компетенции:</h4>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <span class="badge bg-primary">Python</span>
+                                <span class="badge bg-secondary">Django</span>
+                                <span class="badge bg-success">Django REST</span>
+                                <span class="badge bg-danger">PostgreSQL</span>
+                                <span class="badge bg-warning">Docker</span>
+                                <span class="badge bg-info">Git</span>
                             </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-briefcase text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Опыт</h4>
-                                    <p class="text-muted mb-0">5+ лет в разработке</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-heart text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Интересы</h4>
-                                    <p class="text-muted mb-0">AI, Веб-разработка, Open Source</p>
-                                </div>
-                            </div>
+
+                            <h4 class="mt-4">Образование:</h4>
+                            <p>Высшее техническое образование по специальности "Программная инженерия"</p>
+
+                            <h4 class="mt-4">Языки:</h4>
+                            <p>Русский (родной), Английский (B2 - Upper Intermediate)</p>
                         </div>
                     </div>
                 </div>
@@ -338,7 +332,7 @@
         </div>
     </section>
 
-    <!-- Навыки -->
+<!-- Навыки -->
     <section id="skills" class="section">
         <div class="container">
             <h2 class="display-4 fw-bold text-center mb-5 animate__animated animate__fadeInUp">Мои <span class="text-primary">навыки</span></h2>
@@ -497,7 +491,7 @@
         </div>
     </section>
 
-    <!-- Контакты -->
+        <!-- Контакты -->
     <section id="contact" class="section bg-white">
         <div class="container">
             <h2 class="display-4 fw-bold text-center mb-5 animate__animated animate__fadeInUp">Свяжитесь <span class="text-primary">со мной</span></h2>
@@ -543,94 +537,33 @@
         </div>
     </section>
 
-    <!-- Футер -->
-    <footer class="bg-dark text-white py-5">
-        <div class="container text-center">
-            <h3 class="mb-4"><i class="fas fa-code"></i> {{ profile.name }}</h3>
-            <p class="text-muted mb-4">Программистка, создающая цифровые решения для реального мира</p>
-            <div class="mb-4">
-                {% if profile.github_url %}
-                    <a href="{{ profile.github_url }}" class="social-icon text-white" target="_blank"><i class="fab fa-github"></i></a>
-                {% endif %}
-                {% if profile.linkedin_url %}
-                    <a href="{{ profile.linkedin_url }}" class="social-icon text-white" target="_blank"><i class="fab fa-linkedin"></i></a>
-                {% endif %}
+    <!-- Консоль в футере -->
+    <div class="cyber-console">
+        <div class="container">
+            <div class="console-text">
+                > SYSTEM_STATUS: ONLINE | USER: M4R1N4 | LAST_LOGIN: {% now "Y-m-d H:i:s" %} |
+                CURRENT_PROJECTS: {{ projects.count }} | SKILLS: PYTHON, DJANGO, REST_API, DOCKER
             </div>
-            <p class="text-muted mb-0">&copy; {% now "Y" %} {{ profile.name }}. Все права защищены.</p>
         </div>
-    </footer>
+    </div>
 
-    <!-- Скрипты -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        // Анимация при скролле
-        $(window).scroll(function() {
-            $('.animate__animated').each(function() {
-                var position = $(this).offset().top;
-                var scroll = $(window).scrollTop();
-                var windowHeight = $(window).height();
+        // GLITCH эффект для заголовков
+        document.querySelectorAll('.cyber-title').forEach(title => {
+            title.innerHTML = title.textContent.split('').map(char =>
+                `<span style="position:relative">${char}</span>`
+            ).join('');
 
-                if (scroll + windowHeight > position) {
-                    var animation = $(this).attr('class').split('animate__animated ')[1].split(' ')[0];
-                    $(this).addClass('animate__' + animation);
-                }
-            });
+            setInterval(() => {
+                const spans = title.querySelectorAll('span');
+                spans.forEach(span => {
+                    if(Math.random() > 0.9) {
+                        span.style.transform = `translate(${Math.random()*5}px, ${Math.random()*5}px)`;
+                        span.style.color = `hsl(${Math.random()*360}, 100%, 70%)`;
+                    }
+                });
+            }, 100);
         });
-
-        // Плавный скролл
-        $('a[href*="#"]').on('click', function(e) {
-            e.preventDefault();
-            $('html, body').animate(
-                {
-                    scrollTop: $($(this).attr('href')).offset().top - 70,
-                },
-                500,
-                'linear'
-            );
-        });
-
-        // Параллакс эффект
-        $(window).scroll(function() {
-            var scrollPosition = $(this).scrollTop();
-            $('.code-bg').css('transform', 'translateY(-50%) translateX(' + scrollPosition / 10 + 'px)');
-        });
-
-              // JS для анимации печатающегося текста
-      const phrases = [
-        "> Добро пожаловать на мой сайт!",
-        "> Я профессиональный разработчик",
-        "> Специализация: {{ profile.skills.split|join:', ' }}",
-        "> Свяжитесь со мной для сотрудничества!"
-      ];
-      let currentPhrase = 0;
-      let currentChar = 0;
-      let isDeleting = false;
-
-      function typeWriter() {
-        const element = document.getElementById("console-text");
-        const cursor = document.querySelector(".console-cursor");
-
-        cursor.style.opacity = cursor.style.opacity == '0' ? '1' : '0';
-
-        if (!isDeleting && currentChar < phrases[currentPhrase].length) {
-          element.textContent += phrases[currentPhrase].charAt(currentChar);
-          currentChar++;
-          setTimeout(typeWriter, 100);
-        } else if (isDeleting && currentChar > 0) {
-          element.textContent = phrases[currentPhrase].substring(0, currentChar-1);
-          currentChar--;
-          setTimeout(typeWriter, 50);
-        } else {
-          isDeleting = !isDeleting;
-          if (!isDeleting) currentPhrase = (currentPhrase + 1) % phrases.length;
-          setTimeout(typeWriter, isDeleting ? 1500 : 500);
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(typeWriter, 1000);
-      });
     </script>
 </body>
 </html>

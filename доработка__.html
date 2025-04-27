@@ -1,10 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.name }} - Программистка</title>
+    <title>Самакова Марина - Python/Django разработчик</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -12,28 +12,6 @@
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        :root {
-            --primary-color: #6c63ff;
-            --secondary-color: #4d44db;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        .profile-img {
-            width: 280px;  /* Увеличиваем размер */
-            height: 280px;  /* Делаем квадрат */
-            object-fit: cover;
-            border: 5px solid white;
-            border-radius: 20px;  /* Закругляем углы */
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);  /* Усиливаем тень */
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;  /* Для лучшего 3D эффекта */
-        }
 
         .profile-img:hover {
             transform: scale(1.05) rotate(3deg) translateY(-5px);  /* Более плавный эффект */
@@ -217,14 +195,232 @@
             50% { opacity: 0; }
          }
 
+        /* Новый стиль для консоли в новом месте */
+        .fixed-console {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1e1e1e;
+            color: #4af626;
+            padding: 10px;
+            font-family: monospace;
+            z-index: 1000;
+            border-top: 2px solid #4af626;
+        }
+
+        .console-text {
+            min-height: 60px;
+            overflow-y: auto;
+            max-height: 120px;
+        }
+
+
+
+
+
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #4d44db;
+            --bg-color: #f5f7fa;
+            --text-color: #333;
+            --card-bg: #fff;
+            --dark-bg-color: #121212;
+            --dark-text-color: #e0e0e0;
+            --dark-card-bg: #1e1e1e;
+            --neon-blue: #05d9e8;
+            --neon-pink: #ff2a6d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: all 0.5s ease;
+        }
+
+        body.dark-mode {
+            background: var(--dark-bg-color);
+            color: var(--dark-text-color);
+        }
+
+        /* Кнопка переключения темы */
+        .theme-switcher {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-switcher:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        /* Общие стили для карточек */
+        .card {
+            background: var(--card-bg);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .card {
+            background: var(--dark-card-bg);
+            border: 1px solid #333;
+        }
+
+        /* Аватарка */
+        .profile-img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border: 5px solid white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .profile-img {
+            border-color: #333;
+            box-shadow: 0 15px 40px rgba(5, 217, 232, 0.1);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05) rotate(3deg) translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        body.dark-mode .profile-img:hover {
+            box-shadow: 0 20px 50px rgba(5, 217, 232, 0.2);
+        }
+
+        /* Неоновые эффекты для темного режима */
+        body.dark-mode .text-primary {
+            color: var(--neon-blue) !important;
+            text-shadow: 0 0 5px rgba(5, 217, 232, 0.5);
+        }
+
+        body.dark-mode .btn-primary {
+            background-color: var(--neon-blue);
+            border-color: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 10px rgba(5, 217, 232, 0.5);
+        }
+
+        body.dark-mode .btn-outline-primary {
+            color: var(--neon-blue);
+            border-color: var(--neon-blue);
+        }
+
+        body.dark-mode .btn-outline-primary:hover {
+            background-color: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 15px rgba(5, 217, 232, 0.7);
+        }
+
+        /* Плавный скролл */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Анимации */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Секции */
+        .section {
+            padding: 80px 0;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        body.dark-mode .section {
+            background: var(--dark-bg-color);
+        }
+
+        /* Навигация */
+        .navbar {
+            transition: all 0.5s ease;
+        }
+
+        body.dark-mode .navbar {
+            background-color: #000 !important;
+            border-bottom: 1px solid var(--neon-blue);
+            box-shadow: 0 2px 15px rgba(5, 217, 232, 0.1);
+        }
+
+        /* Консоль */
+        .fixed-console {
+            background: #1e1e1e;
+            color: var(--neon-blue);
+            border-top: 1px solid var(--neon-blue);
+        }
+
+        body.dark-mode .fixed-console {
+            box-shadow: 0 0 20px rgba(5, 217, 232, 0.2);
+        }
+
+        /* Проекты */
+        .project-card {
+            transition: all 0.5s ease;
+        }
+
+        body.dark-mode .project-card {
+            border: 1px solid #333;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        body.dark-mode .project-card:hover {
+            box-shadow: 0 10px 30px rgba(5, 217, 232, 0.2) !important;
+            border-color: var(--neon-blue);
+        }
+
+        /* Форма */
+        body.dark-mode .form-control {
+            background-color: #2d2d2d;
+            border-color: #444;
+            color: #fff;
+        }
+
+        body.dark-mode .form-control:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 0.25rem rgba(5, 217, 232, 0.25);
+        }
     </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="100">
+    <!-- Кнопка переключения темы -->
+    <button class="theme-switcher" id="themeSwitcher">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <!-- Навигация -->
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand animate__animated animate__fadeInLeft" href="#">
-                <i class="fas fa-code"></i> Samakova Marina
+                <i class="fas fa-code"></i> Самакова Марина
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -254,83 +450,67 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 animate__animated animate__fadeInLeft">
                     <h1 class="display-3 fw-bold mb-4">Привет, я <span class="text-primary">Самакова Марина</span></h1>
-                    <h1><i class="fas fa-code"></i> Python Developer</h1>
-<!--                    <h2 class="text-muted mb-4">{{ profile.title }}</h2>-->
-<!--                    <p class="lead mb-4">{{ profile.bio|linebreaks }}</p>-->
-                    <div class="about-header mb-4">
-                        <h2 class="text-primary mb-1">Python/Django разработчик</h2>
-                        <p class="fs-5">3+ года создания веб-приложений</p>
-                    </div>
+                    <h2 class="text-muted mb-4">Python/Django разработчик</h2>
 
-                    <!-- Добавьте в hero-секцию -->
-                    <div class="console-container mt-4 animate__animated animate__fadeInLeft animate__delay-1s">
-                      <div class="console-header bg-dark text-white p-2 rounded-top">
-                        <i class="fas fa-circle text-danger me-1"></i>
-                        <i class="fas fa-circle text-warning me-1"></i>
-                        <i class="fas fa-circle text-success me-1"></i>
-                      </div>
-                      <div class="console-body bg-black text-success p-3 rounded-bottom font-monospace">
-                        <span id="console-text"></span>
-                        <span class="console-cursor">|</span>
-                      </div>
+                    <div class="about-header mb-4">
+                        <h3 class="text-primary mb-1">Специализация:</h3>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Веб-разработка на Django</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Создание REST API</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Оптимизация производительности</li>
+                        </ul>
                     </div>
 
                     <div class="d-flex">
-                        <a href="#about" class="btn btn-primary btn-lg me-3">Узнать больше</a>
+                        <a href="#projects" class="btn btn-primary btn-lg me-3">Мои проекты</a>
                         <a href="#contact" class="btn btn-outline-primary btn-lg">Связаться</a>
                     </div>
                 </div>
                 <div class="col-lg-6 text-center animate__animated animate__fadeInRight">
-                    <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" class="profile-img rounded-circle floating">
-                    <img src="{% static 'blog/images/code-bg.png' %}" alt="Code background" class="code-bg d-none d-lg-block">
+                    <img src="{% static 'images/profile.jpg' %}" alt="Самакова Марина" class="profile-img rounded-circle floating">
                 </div>
             </div>
         </div>
-        <a href="#about" class="scroll-down">
-            <i class="fas fa-chevron-down text-primary fa-2x"></i>
-        </a>
     </header>
 
     <!-- Обо мне -->
     <section id="about" class="section bg-white">
         <div class="container">
+            <h2 class="display-4 fw-bold mb-5 animate__animated animate__fadeInUp">Обо <span class="text-primary">мне</span></h2>
+
             <div class="row">
-                <div class="col-lg-6">
-                    <h2 class="display-4 fw-bold mb-5 animate__animated animate__fadeInUp">Обо <span class="text-primary">мне</span></h2>
-                    <div class="animate__animated animate__fadeInUp animate__delay-1s">
-                        {{ profile.bio|linebreaks }}
+                <div class="col-lg-6 animate__animated animate__fadeInUp">
+                    <div class="mb-4">
+                        <p>Я профессиональный Python-разработчик с более чем 3-летним опытом создания веб-приложений на Django. Специализируюсь на разработке высоконагруженных систем и REST API.</p>
+
+                        <h4 class="mt-4">Мой опыт:</h4>
+                        <ul>
+                            <li>Разработка и поддержка коммерческих проектов на Django</li>
+                            <li>Создание микросервисной архитектуры</li>
+                            <li>Интеграция с платежными системами и внешними API</li>
+                            <li>Оптимизация производительности Django-приложений</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="card shadow-lg animate__animated animate__fadeInUp animate__delay-2s">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-graduation-cap text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Образование</h4>
-                                    <p class="text-muted mb-0">Компьютерные науки</p>
-                                </div>
+
+                <div class="col-lg-6 animate__animated animate__fadeInUp">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">Ключевые компетенции:</h4>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                <span class="badge bg-primary">Python</span>
+                                <span class="badge bg-secondary">Django</span>
+                                <span class="badge bg-success">Django REST</span>
+                                <span class="badge bg-danger">PostgreSQL</span>
+                                <span class="badge bg-warning">Docker</span>
+                                <span class="badge bg-info">Git</span>
                             </div>
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-briefcase text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Опыт</h4>
-                                    <p class="text-muted mb-0">5+ лет в разработке</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-primary p-3 rounded-circle me-3">
-                                    <i class="fas fa-heart text-white fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h4 class="mb-0">Интересы</h4>
-                                    <p class="text-muted mb-0">AI, Веб-разработка, Open Source</p>
-                                </div>
-                            </div>
+
+                            <h4 class="mt-4">Образование:</h4>
+                            <p>Высшее техническое образование по специальности "Программная инженерия"</p>
+
+                            <h4 class="mt-4">Языки:</h4>
+                            <p>Русский (родной), Английский (B2 - Upper Intermediate)</p>
                         </div>
                     </div>
                 </div>
@@ -338,7 +518,7 @@
         </div>
     </section>
 
-    <!-- Навыки -->
+<!-- Навыки -->
     <section id="skills" class="section">
         <div class="container">
             <h2 class="display-4 fw-bold text-center mb-5 animate__animated animate__fadeInUp">Мои <span class="text-primary">навыки</span></h2>
@@ -497,7 +677,7 @@
         </div>
     </section>
 
-    <!-- Контакты -->
+        <!-- Контакты -->
     <section id="contact" class="section bg-white">
         <div class="container">
             <h2 class="display-4 fw-bold text-center mb-5 animate__animated animate__fadeInUp">Свяжитесь <span class="text-primary">со мной</span></h2>
@@ -543,7 +723,14 @@
         </div>
     </section>
 
-    <!-- Футер -->
+    <!-- Новая консоль внизу экрана -->
+    <div class="fixed-console">
+        <div class="container">
+            <div class="console-text" id="console-text"></div>
+        </div>
+    </div>
+
+        <!-- Футер -->
     <footer class="bg-dark text-white py-5">
         <div class="container text-center">
             <h3 class="mb-4"><i class="fas fa-code"></i> {{ profile.name }}</h3>
@@ -590,47 +777,141 @@
             );
         });
 
-        // Параллакс эффект
-        $(window).scroll(function() {
-            var scrollPosition = $(this).scrollTop();
-            $('.code-bg').css('transform', 'translateY(-50%) translateX(' + scrollPosition / 10 + 'px)');
+    <!-- Скрипты -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Обновленный скрипт для консоли
+        const phrases = [
+            "> Добро пожаловать на мой сайт-портфолио!",
+            "> Я - Python/Django разработчик с 3+ годами опыта",
+            "> Мои ключевые навыки: Django, REST API, PostgreSQL, Docker",
+            "> В моем портфолио вы найдете примеры моих работ",
+            "> Для сотрудничества пишите на email или в соцсети"
+        ];
+
+        let currentPhrase = 0;
+        let currentChar = 0;
+        let isDeleting = false;
+        let isEnd = false;
+
+        function typeWriter() {
+            const element = document.getElementById("console-text");
+
+            if (!isDeleting && currentChar < phrases[currentPhrase].length) {
+                element.innerHTML += phrases[currentPhrase].charAt(currentChar);
+                currentChar++;
+                setTimeout(typeWriter, 50);
+            } else if (isDeleting && currentChar > 0) {
+                element.innerHTML = phrases[currentPhrase].substring(0, currentChar-1);
+                currentChar--;
+                setTimeout(typeWriter, 30);
+            } else {
+                if (!isDeleting) {
+                    isEnd = true;
+                    setTimeout(typeWriter, 2000);
+                } else {
+                    isEnd = false;
+                    currentPhrase = (currentPhrase + 1) % phrases.length;
+                    setTimeout(typeWriter, 500);
+                }
+                isDeleting = !isDeleting;
+            }
+        }
+
+        // Запускаем анимацию после загрузки страницы
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(typeWriter, 1000);
+        });
+    </script>
+
+<script>
+        // Переключение темы
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        const body = document.body;
+
+        // Проверяем сохраненную тему
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeSwitcher.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        themeSwitcher.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeSwitcher.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeSwitcher.innerHTML = '<i class="fas fa-moon"></i>';
+            }
         });
 
-              // JS для анимации печатающегося текста
-      const phrases = [
-        "> Добро пожаловать на мой сайт!",
-        "> Я профессиональный разработчик",
-        "> Специализация: {{ profile.skills.split|join:', ' }}",
-        "> Свяжитесь со мной для сотрудничества!"
-      ];
-      let currentPhrase = 0;
-      let currentChar = 0;
-      let isDeleting = false;
+        // Плавное появление элементов при скролле
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate-on-scroll');
 
-      function typeWriter() {
-        const element = document.getElementById("console-text");
-        const cursor = document.querySelector(".console-cursor");
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
 
-        cursor.style.opacity = cursor.style.opacity == '0' ? '1' : '0';
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        };
 
-        if (!isDeleting && currentChar < phrases[currentPhrase].length) {
-          element.textContent += phrases[currentPhrase].charAt(currentChar);
-          currentChar++;
-          setTimeout(typeWriter, 100);
-        } else if (isDeleting && currentChar > 0) {
-          element.textContent = phrases[currentPhrase].substring(0, currentChar-1);
-          currentChar--;
-          setTimeout(typeWriter, 50);
-        } else {
-          isDeleting = !isDeleting;
-          if (!isDeleting) currentPhrase = (currentPhrase + 1) % phrases.length;
-          setTimeout(typeWriter, isDeleting ? 1500 : 500);
+        // Запускаем при загрузке и при скролле
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Скрипт для консоли
+        const phrases = [
+            "> Добро пожаловать на мой сайт-портфолио!",
+            "> Я - Python/Django разработчик с 3+ годами опыта",
+            "> Мои ключевые навыки: Django, REST API, PostgreSQL, Docker",
+            "> В моем портфолио вы найдете примеры моих работ",
+            "> Для сотрудничества пишите на email или в соцсети"
+        ];
+
+        let currentPhrase = 0;
+        let currentChar = 0;
+        let isDeleting = false;
+        let isEnd = false;
+
+        function typeWriter() {
+            const element = document.getElementById("console-text");
+
+            if (!isDeleting && currentChar < phrases[currentPhrase].length) {
+                element.innerHTML += phrases[currentPhrase].charAt(currentChar);
+                currentChar++;
+                setTimeout(typeWriter, 50);
+            } else if (isDeleting && currentChar > 0) {
+                element.innerHTML = phrases[currentPhrase].substring(0, currentChar-1);
+                currentChar--;
+                setTimeout(typeWriter, 30);
+            } else {
+                if (!isDeleting) {
+                    isEnd = true;
+                    setTimeout(typeWriter, 2000);
+                } else {
+                    isEnd = false;
+                    currentPhrase = (currentPhrase + 1) % phrases.length;
+                    setTimeout(typeWriter, 500);
+                }
+                isDeleting = !isDeleting;
+            }
         }
-      }
 
-      document.addEventListener("DOMContentLoaded", function() {
-        setTimeout(typeWriter, 1000);
-      });
+        // Запускаем анимацию после загрузки страницы
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(typeWriter, 1000);
+
+            // Добавляем классы для анимации при скролле
+            document.querySelectorAll('section, .card, .project-card').forEach(el => {
+                el.classList.add('animate-on-scroll');
+            });
+        });
     </script>
 </body>
 </html>
